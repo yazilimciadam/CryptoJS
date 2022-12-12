@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://iliailin.github.io/elo-foosball",
+  "homepage": "https://yazilimciadam.github.io/CryptoJS/",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
