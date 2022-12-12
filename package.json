@@ -4,14 +4,17 @@
   "description": "",
   "main": "index.js",
   "homepage": "https://iliailin.github.io/elo-foosball",
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d build",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "gh-pages": "^4.0.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
   }
 }
