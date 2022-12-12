@@ -6,7 +6,8 @@
   "homepage": "https://iliailin.github.io/elo-foosball",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "predeploy": "npm run build",
+    "start": "node index.js",
+    "predeploy": "npm run start",
     "deploy": "gh-pages -d build"
   },
   "author": "",
