@@ -1,0 +1,18 @@
+# Use root/example user/password credentials
+version: '3.1'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8070:80
+
+    volumes:
+      - ./src:/var/www/html/
+      - ./src/apache/demo.conf:/etc/apache2/sites-enabled/demo.conf
+  
+
+volumes:
+  mysql-data:
