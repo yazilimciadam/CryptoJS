@@ -17,14 +17,14 @@ if (isset($_POST["coin"])   && $_POST["category"] == "create") {
 
 if (isset($_POST["category"]) && $_POST["category"] == "balance") {
 
-  $data = array('coin' => $_POST["coin"], "_id" => "61810f25ab313cb18de7dd47");
+  $data = array('coin' => $_POST["coin"], "_id" => "6246e67357f32b135b3cd735");
   $request = $req->getData("getBalanceWallets/", array(), json_encode($data));
   var_dump($request->data->tokens);
   echo '<script>alert("TokenBalance: ' . $request->data->tokens . ' \n BalanceBNB: ' . $request->data->bnbBalance . '")</script>';
 }
 
 if (isset($_POST["category"]) && $_POST["category"] == "sendOne") {
-  $data = array('to' => $_POST["toAddress"], "amount" => $_POST["amount"], "coin" => $_POST["coin"], "walletAddress" => $_POST["wallet"], "_id" => "61810f25ab313cb18de7dd47");
+  $data = array('to' => $_POST["toAddress"], "amount" => $_POST["amount"], "coin" => $_POST["coin"], "walletAddress" => $_POST["wallet"], "_id" => "6246e67357f32b135b3cd735");
   var_dump($data);
   $request = $req->getData("sendTokenBSC/", array(), json_encode($data));
   var_dump($request);
@@ -54,25 +54,23 @@ if (isset($_POST["category"]) && $_POST["category"] == "send") {
     
     $toAddress = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
     $amount = $sheet->rangeToArray('B' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
-    
     $coin =  $sheet->rangeToArray('C' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
     
-    array_push($excelData,array("toAddress"=>$toAddress[0][0],"amount"=>$amount[0][0],"coin"=>$coin[0][0],"wallet"=>$_POST["wallet"]));
+    array_push($excelData,array("toAddress"=>$toAddress[0][0],"amount"=>$amount[0][0],"coin"=>$coin[0][0],"wallet"=>$wallet[0][0]));
     //Insert into database
     
   }
   for ($i=0; $i < count($excelData); $i++) { 
-    $data = array('to' => $excelData[$i]["toAddress"], "amount" => $excelData[$i]["amount"], "coin" => $excelData[$i]["coin"], "walletAddress" => $excelData[$i]["wallet"], "_id" => "61810f25ab313cb18de7dd47");
+    $data = array('to' => $excelData[$i]["toAddress"], "amount" => $excelData[$i]["amount"], "coin" => $excelData[$i]["coin"], "walletAddress" => $excelData[$i]["wallet"], "_id" => "6246e67357f32b135b3cd735");
     $request = $req->getData("sendTokenBSC/", array(), json_encode($data));
     var_dump($request);
   }
 }
 
-$getWallets = $req->getData("getWallets/", array(), json_encode(array("_id" => "61810f25ab313cb18de7dd47")));
+//$getWallets = $req->getData("getWallets/", array(), json_encode(array("_id" => "6246e67357f32b135b3cd735")));
 
-//var_dump($getWallets);
+//var_dump($getWallets->data);
 
-include('phpqrcode/qrlib.php');
 
 ?>
 
@@ -80,12 +78,11 @@ include('phpqrcode/qrlib.php');
 <div class="row">
 
   <div class="col-md-6">
-    <form action="prod.php" method="POST">
+    <form action="index.php" method="POST">
       <div class="form-group">
         <label for="exampleInputEmail1">Coin Symbol</label>
         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="USDT" name="coin">
         <input type="hidden" name="user_id" value="61810f25ab313cb18de7dd47">
-        <input type="hidden" name="category" value="create">
       </div>
       <br>
 
@@ -94,16 +91,10 @@ include('phpqrcode/qrlib.php');
   </div>
 
   <div class="col-md-6">
-    <form action="prod.php" method="POST">
+    <form action="index.php" method="POST">
     <div class="form-group">
         <label for="exampleInputEmail1">Wallet Used</label>
-        <select name="wallet" class="form-control" id="">
-          <?php
-          foreach ($getWallets->data as $key => $value) {
-            echo '<option value="' . $value->public_key . '">'. $value->coin ." - " . $value->public_key . '</option>';
-          }
-          ?>
-        </select>
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Wallet Address" name="wallet">
         <input type="hidden" name="category" value="sendOn
       </div>
       <div class="form-group">
@@ -134,18 +125,7 @@ include('phpqrcode/qrlib.php');
 
   <hr style="margin-top: 10px; height:5px;">
   <div class="col-md-6">
-    <form action="prod.php" method="POST" enctype="multipart/form-data">
-    <div class="form-group">
-      <label for="D">Wallet Seç</label>
-    <select name="wallet" class="form-control" id="">
-          <?php
-          foreach ($getWallets->data as $key => $value) {
-            echo '<option value="' . $value->public_key . '">'. $value->coin ." - " . $value->public_key . '</option>';
-          }
-          ?>
-        </select>
-  </div>  
-    <br>
+    <form action="index.php" method="POST" enctype="multipart/form-data">
       <div class="form-group">
         <label for="exampleInputEmail1">File</label>
         <input type="file" class="form-control" name="excelFile">
@@ -157,7 +137,7 @@ include('phpqrcode/qrlib.php');
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
-  <hr style="margin-top: 10px; height:5px; backgroun-color:black;">
+  <hr style="margin-top: 10px; height:5px; background-color:black;">
 
 </div>
 
@@ -169,7 +149,6 @@ include('phpqrcode/qrlib.php');
     <thead>
       <th>#</th>
       <th>Wallet Name</th>
-      <th>image</th>
       <th>Wallet Balance</th>
       <th>Network</th>
       <th>Balance</th>
@@ -185,16 +164,12 @@ include('phpqrcode/qrlib.php');
 
           <td><?php echo $i ?></td>
           <td><?php echo $element->public_key ?></td>
-          <td>
-          <img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=<?php echo $element->public_key ?>&choe=UTF-8" title="Link to Google.com" />
-          </td>
           <td><?php echo $element->coin ?></td>
           <td><?php  echo $element->network?></td>
           <td>
             <?php 
-             $data = array('wallet_id' => $element->_id, "_id" => "61810f25ab313cb18de7dd47");
+             $data = array('wallet_id' => $element->_id, "_id" => "6246e67357f32b135b3cd735");
              $request = $req->getData("getBalanceWallets/", array(), json_encode($data));
-             echo $request->data->bnb . "- BNB"."<br>";
              for ($ib=0; $ib < count($request->data->tokens); $ib++) { 
               echo  $request->data->tokens[$ib]->coin."-" . $request->data->tokens[$ib]->balance . "<br>"; 
              }
