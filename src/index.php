@@ -72,7 +72,6 @@ $getWallets = $req->getData("getWallets/", array(), json_encode(array("_id" => "
 
 //var_dump($getWallets);
 
-include('phpqrcode/qrlib.php');
 
 ?>
 
