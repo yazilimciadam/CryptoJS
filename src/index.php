@@ -93,7 +93,7 @@ $getWallets = $req->getData("getWallets/", array(), json_encode(array("_id" => "
   </div>
 
   <div class="col-md-6">
-    <form action="prod.php" method="POST">
+    <form action="index.php" method="POST">
     <div class="form-group">
         <label for="exampleInputEmail1">Wallet Used</label>
         <select name="wallet" class="form-control" id="">
@@ -133,7 +133,7 @@ $getWallets = $req->getData("getWallets/", array(), json_encode(array("_id" => "
 
   <hr style="margin-top: 10px; height:5px;">
   <div class="col-md-6">
-    <form action="prod.php" method="POST" enctype="multipart/form-data">
+    <form action="index.php" method="POST" enctype="multipart/form-data">
     <div class="form-group">
       <label for="D">Wallet Seç</label>
     <select name="wallet" class="form-control" id="">
