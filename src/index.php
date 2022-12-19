@@ -79,7 +79,7 @@ $getWallets = $req->getData("getWallets/", array(), json_encode(array("_id" => "
 <div class="row">
 
   <div class="col-md-6">
-    <form action="prod.php" method="POST">
+    <form action="index.php" method="POST">
       <div class="form-group">
         <label for="exampleInputEmail1">Coin Symbol</label>
         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="USDT" name="coin">
